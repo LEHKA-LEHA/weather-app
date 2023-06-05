@@ -1,0 +1,51 @@
+<div>
+  <h1>Sign Up</h1>
+  <form (submit)="onSubmit()" #signupForm="ngForm">
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <label>
+      Username:
+      <input type="text" [(ngModel)]="username" name="username" required>
+    </label>
+    <br>
+    <label>
+      Email:
+      <input id="emailAddress" type="email" size="64" maxlength="64" required placeholder="username@example.com"
+        [(ngModel)]="email" name="email" #emailInput="ngModel"
+        (blur)="lostFocus = true; emailInput.control.markAsTouched();"
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+
+      <div
+        *ngIf="emailInput.touched && (emailInput.invalid || (emailInput.pristine && emailInput.errors?.['required']) || emailInput.errors?.['pattern'])"
+        class="error-message">
+        Please enter a valid email address (e.g. user@example.com).
+      </div>
+    </label>
+
+    <br>
+    <label>
+      Password:
+      <input id="password" type="password" [(ngModel)]="password" name="password" required
+        (blur)="lostFocus = true; passwordInput.control.markAsTouched();"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&/^()_-<>,.])[A-Za-z\d@$!%*#?&]{8,}$"
+        #passwordInput="ngModel">
+      <small>Please ensure that password is at least 8 characters with at least one uppercase letter, one lowercase letter, one
+        number, and one special character (e.g. #$%^&*).</small>
+
+      <div
+        *ngIf="passwordInput.touched && (passwordInput.invalid ||(passwordInput.pristine && passwordInput.errors?.['required']) ||  passwordInput.errors?.['pattern'])"
+        class="error-message">
+        Please ensure the password criteria is met.
+      </div>
+    </label>
+
+    <br>
+    <label>
+      Confirm Password:
+      <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+    </label>
+    <br>
+    <button type="submit">Sign Up</button>
+    <br>
+    <a routerLink="/login" routerLinkActive="active">Already have an account? Login here</a>
+  </form>
+</div>

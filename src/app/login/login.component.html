@@ -1,0 +1,32 @@
+<div>
+  <h1>Login</h1>
+
+  <form (submit)="onSubmit()">
+    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <label>
+      Email:
+      <input id="emailAddress" type="email" size="64" maxlength="64" required placeholder="username@example.com"
+        [(ngModel)]="email" name="email" #emailInput="ngModel"
+        (blur)="lostFocus = true; emailInput.control.markAsTouched();" />
+
+      <div
+        *ngIf="emailInput.touched && (emailInput.invalid || (emailInput.pristine && emailInput.errors?.['required']))"
+        class="error-message">
+        Please enter a valid email address (e.g. user@example.com).
+      </div>
+    </label>
+
+    <label>
+      Password:
+      <input type="password" [(ngModel)]="password" name="password" required
+        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+    </label>
+    <br>
+
+    <button type="submit">Login</button>
+    <br>
+    <a routerLink="/signup" routerLinkActive="active">Don't have an account? Create here</a>
+
+    <div *ngIf="message" class="error-message">{{ message }}</div>
+  </form>
+</div>
